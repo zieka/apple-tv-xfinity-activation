@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "gh-pages": "^1.1.0",
     "inferno": "^3.10.1",
     "inferno-component": "^3.10.1",
     "inferno-scripts": "5.0.0",
@@ -12,6 +13,9 @@
     "start": "inferno-scripts start",
     "build": "inferno-scripts build",
     "test": "inferno-scripts test --env=jsdom",
-    "eject": "inferno-scripts eject"
-  }
+    "eject": "inferno-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  },
+  "homepage": "https://zieka.github.io/apple-tv-xfinity-activation"
 }
