@@ -31,6 +31,40 @@ const apps = {
 const appNames = Object.keys(apps);
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = appNames.reduce((prev, current) => {
+      prev[current] = "";
+      return prev;
+    }, {});
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.value;
+    const id = target.id;
+
+    this.setState({
+      [id]: value
+    });
+  }
+
+  handleSubmit(event) {
+    const target = event.target;
+    const name = target.name;
+    const activationCode = this.state[name].toUpperCase();
+
+    if (activationCode) {
+      const activationURL = apps[name];
+      window.open(activationURL.replace("XXXXXXX", activationCode), "_blank");
+    }
+
+    event.preventDefault();
+  }
+
   render() {
     return (
       <div className="body">
@@ -60,25 +94,35 @@ class App extends Component {
           <div className="f3 col-12">Step 3</div>
           <p>Enter the activation code and hit the activate button</p>
         </div>
-
         {appNames.map(each => (
-          <div className="row">
-            <div className="col-12">
-              <div className="io">
-                <label className="io__label" htmlFor={each} required>
-                  {each}
-                </label>
-                <input
-                  className="io__control"
-                  type="email"
-                  placeholder="enter your activation code"
-                  id={each}
-                />
+          <div>
+            <div className="row">
+              <div className="col-6">
+                <div className="io">
+                  <label className="io__label" htmlFor={each} required>
+                    {each}
+                  </label>
+                  <input
+                    className="io__control"
+                    type="text"
+                    placeholder="enter your activation code"
+                    id={each}
+                    value={this.state[each]}
+                    onChange={this.handleInputChange}
+                  />
+                </div>
               </div>
+              <button
+                style={{ marginTop: "19px", height: "36px" }}
+                className="btn btn--fill"
+                onClick={this.handleSubmit}
+                name={each}
+              >
+                activate
+              </button>
             </div>
           </div>
         ))}
-        <button className="btn btn--fill">activate</button>
       </div>
     );
   }
