@@ -97,7 +97,7 @@ class App extends Component {
         {appNames.map(each => (
           <div>
             <div className="row">
-              <div className="col-8 md-10">
+              <div className="col-5 md-10">
                 <div className="io">
                   <label className="io__label" htmlFor={each} required>
                     {each}
@@ -114,7 +114,7 @@ class App extends Component {
               </div>
               <button
                 style={{ marginTop: "19px", height: "36px" }}
-                className="btn btn--fill col-4 md-2"
+                className="btn btn--fill col-5 md-2"
                 onClick={this.handleSubmit}
                 name={each}
               >
